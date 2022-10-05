@@ -18,9 +18,8 @@ public class PlayersController {
     PlayersService playersService;
 
     @GetMapping("/players")
-    public ResponseEntity<List<Player>> getPlayers(){
-
-        return new ResponseEntity<>(playersService.getPlayers(), HttpStatus.OK);
+    public ResponseEntity<?> getPlayers(){
+        return ResponseEntity.ok(playersService.getPlayers());
     }
 
 }
