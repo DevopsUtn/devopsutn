@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  api:
+    build: .
+    ports:
+      - "8081:8081"
+    networks:
+      - spring-postgres
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    networks:
+      - spring-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=devops
+networks:
+  spring-postgres:
