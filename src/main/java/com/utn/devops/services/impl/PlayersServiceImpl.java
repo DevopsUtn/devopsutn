@@ -16,6 +16,7 @@ public class PlayersServiceImpl implements PlayersService {
     @Autowired
     PlayersRepository playersRepository;
     public List<Player> getPlayers(){
+        createPlayers();
         return playersRepository.findAll();
     }
     private List<Player> createPlayers(){
@@ -30,6 +31,7 @@ public class PlayersServiceImpl implements PlayersService {
         playerDos.setBirthday(new Date());
         players.add(playerUno);
         players.add(playerDos);
+        playersRepository.saveAll(players);
         return players;
     }
 
