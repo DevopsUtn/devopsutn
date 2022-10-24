@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     echo "Building..."
-                    // sh(returnStdout: true, script: 'npm run build')
+                    sh(returnStdout: true, script: './mvnw clean compile')
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     echo "Testing..."
-                    // sh(returnStdout: true, script: 'npm run test -- --silent')
+                    sh(returnStdout: true, script: './mvnw test')
                 }
             }
         }
@@ -31,6 +31,7 @@ pipeline {
             when { tag 'v*' }
             steps {
                 echo "Deploying..."
+                sh(returnStdout: true, script: './mvnw install')
             }
         }
     }
