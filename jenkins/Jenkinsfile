@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    environment {
+        REPO_URL = 'https://github.com/DevopsUtn/devopsutn.git'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/tp3' ]], extensions: [],  url: "${REPO_URL}"])
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    echo "Building..."
+                    // sh(returnStdout: true, script: 'npm run build')
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    echo "Testing..."
+                    // sh(returnStdout: true, script: 'npm run test -- --silent')
+                }
+            }
+        }
+        stage('Deploy') {
+            when { tag 'v*' }
+            steps {
+                echo "Deploying..."
+            }
+        }
+    }
+}
